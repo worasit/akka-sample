@@ -1,6 +1,6 @@
 package simple
 
-import akka.actor.Actor
+import akka.actor.{Actor, ActorSystem, Props}
 
 
 // =========== Items Enumeration ===========
@@ -19,6 +19,27 @@ class ChefActor extends Actor {
     case _ => println("This item does not exist.")
   }
 }
+
+object ChefActor extends App {
+
+  // Define Actor System
+  val system = ActorSystem("chef-system")
+
+  // Create a Chef's actor
+  val chefActor = system.actorOf(Props[ChefActor], "chef-ped")
+
+  // Get items from waitress
+  val items = Vector(Pizza, Omelet, "Sushi")
+
+  // Send the items to chef actor
+  items foreach (chefActor ! _)
+
+  // terminate actor system
+  system.terminate
+
+}
+
+
 
 
 
