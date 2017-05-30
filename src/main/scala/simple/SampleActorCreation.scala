@@ -44,7 +44,7 @@ object VideoPlayer {
 
 class VideoPlayer extends Actor {
 
-  def videoController = this.context.actorOf(VideoController.prop, "player")
+  def videoController = this.context.actorOf(VideoController.prop)
 
   override def receive: Receive = {
     case VideoPlayer.Play =>
