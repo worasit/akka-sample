@@ -10,8 +10,9 @@ class Watcher extends Actor {
 
   val selection = context.actorSelection("/user/counter")
 
-  selection ! Identify
+  selection ! Identify(None)
 
+  //  use "Identify" message to to retrieve the ActorRef in a receive method
   override def receive: Receive = {
     case ActorIdentity(_, Some(ref)) =>
       println(s"Actor Reference for counter is ${ref}")
@@ -21,7 +22,8 @@ class Watcher extends Actor {
 }
 
 /** *
-  * Conclusion: you can use 'ActorRef' or 'ActorPath' for referencing to Actors
+  * Conclusion: you can use 'ActorRef' or 'ActorPath' for referencing to Actors. But the ActorPath cannot use as the reference in the watcher, so
+  * you can use "Identify" message to to retrieve the ActorRef in a receive method
   */
 object Watcher extends App {
 
